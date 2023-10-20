@@ -1,38 +1,9 @@
 import React, { useState, useEffect } from "react";
+import styles from "./UserTable.module.css";
 
 function UserTable() {
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const containerStyle = {
-    background: "black",
-    color: "white",
-    padding: "20px",
-  };
-
-  const tableStyle = {
-    borderCollapse: "collapse",
-    width: "100%",
-    border: "1px solid white",
-  };
-
-  const thStyle = {
-    borderBottom: "1px solid white",
-    padding: "8px",
-  };
-
-  const tdStyle = {
-    padding: "8px",
-  };
-
-  const imgStyle = {
-    maxWidth: "100px",
-    maxHeight: "100px",
-  };
-
-  const tdPlusStyle = {
-    borderLeft: "5px solid black",
-  };
 
   useEffect(() => {
     fetch("https://dummyjson.com/users")
@@ -52,41 +23,43 @@ function UserTable() {
   }, []);
 
   return (
-    <div style={containerStyle}>
+    <div className={styles.container}>
       <h1>Dummy Data</h1>
       {loading ? (
         <p>Loading data...</p>
       ) : userData && userData.length > 0 ? (
-        <table style={tableStyle}>
+        <table className={styles.table}>
           <thead>
             <tr>
-              <th style={thStyle}>S.No</th>
-              <th style={thStyle}>Profile Pic</th>
-              <th style={thStyle}>First Name</th>
-              <th style={thStyle}>Last Name</th>
-              <th style={thStyle}>Gender</th>
-              <th style={thStyle}>E-mail</th>
-              <th style={thStyle}>Username</th>
-              <th style={thStyle}>Domain</th>
-              <th style={thStyle}>University</th>
+              <th>S.No</th>
+              <th>Profile Pic</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>E-mail</th>
+              <th>Username</th>
+              <th>Domain</th>
+              <th>University</th>
             </tr>
           </thead>
           <tbody>
             {userData.map((user, index) => (
               <tr key={index}>
-                <td style={tdStyle}>{index + 1}</td>
+                <td>{index + 1}</td>
                 <td>
-                  <img src={user.image} alt="Profile Pic" style={imgStyle} />
+                  <img
+                    src={user.image}
+                    alt="Profile Pic"
+                    className={styles.image}
+                  />
                 </td>
-                <td style={tdStyle}>{user.firstName}</td>
-                <td style={tdStyle}>{user.lastName}</td>
-                <td style={tdStyle}>{user.gender}</td>
-                <td style={tdStyle}>{user.email}</td>
-                <td style={tdStyle}>{user.username}</td>
-                <td style={tdStyle}>{user.domain}</td>
-                <td style={{ ...tdStyle, ...tdPlusStyle }}>
-                  {user.university}
-                </td>
+                <td>{user.firstName}</td>
+                <td>{user.lastName}</td>
+                <td>{user.gender}</td>
+                <td>{user.email}</td>
+                <td>{user.username}</td>
+                <td>{user.domain}</td>
+                <td>{user.university}</td>
               </tr>
             ))}
           </tbody>
